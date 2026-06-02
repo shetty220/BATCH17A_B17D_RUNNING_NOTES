@@ -708,6 +708,144 @@ spec:
 kubectl apply -f pod1.yaml
 
 
+===============================
+
+1 JUNE 2026
+
+--------
+kubectl run pod nginx --image nginx:latest --dry-run -o yaml 
+--------
+kubectl explain pods ---> gives explaination of pods manifest files 
+
+--------
+kubectl explain pods.metadata
+
+--------
+kubectl cluster-info
+kubectl cluster-info dump ---> total cluster info
+
+--------
+
+kubectl api-resources --->resorces we can create like pods,deployments...etc
+
+kubectl api-resources | grep pod 
+--------
+kubectl cordon instance ip ---> unschedule the nodes ,no new pod will be schedule
+Marks a node as unschedulable—new pods will not be scheduled on it, but existing pods continue to run.. 
+when You want to stop placing new workloads on the node but don't want to disrupt what's already running.
+--------
+
+kubectl drain ip-172-20-103-135.ec2.internal --->  evicts all pods to another node and schedule will be disable
+--------
+kubectl uncordon ip-172-20-38-30.ec2.internal
+
+
+kubectl get all 
+==========================		
+kubectl get replicaset
+NAME     DESIRED   CURRENT   READY   AGE
+tomcat   5         5         5       116s
+-----------
+
+So Why do we need labels and Selectoers ?
+
+Labels can be used as filter to replica set , so replica set will monitor and ensure desired no of pods are running 
+
+==========================================================
+scale replicas and ways to scale :
+
+1. kubectl scale replicaset insta-rs --replicas=3
+1. Change manifest file -->- then kubectl apply -f insta-rs.yaml
+3. kubectl scale --replicas=6 -f insta-rs.yaml
+4. kubectl edit replicaset <replicasetname> --> opens a temporoay file in memory
+
+
+
+History:
+421  cd 1june2026/
+  422  ll
+  423  cat 1-pod.yaml
+  424  kubectl get po
+  425  kubectl describe po fb-pod
+  426  kubectl cluster-info
+  427  kubectl cluster-info dump
+  428  kubectl api-resources
+  429  kubectl api-resources
+  430  kubectl run pod2 --image tomcat --dry-run -o yaml
+  431  kubectl get nodes
+  432  kubectl get po
+  433  ll
+  434  kubectl apply -f 3-mc-pod.yaml
+  435  kubectl get po
+  436  kubectl describe po twitter-pod
+  437  kubectl get po
+  438  kubectl logs twitter-pod -c twitter-container-1
+  439  kubectl logs twitter-pod -c twitter-container-2
+  440  kubectl apply -f 3-mc-pod.yaml
+  441  kubectl apply -f 3-mc-pod.yaml
+  442  kubectl apply -f 3-mc-pod.yaml
+  443  kubectl get nodes
+  444  kubectl get nodes -o wide
+  445  kubectl get po -o wide
+  446  kubectl get po -o wide
+  447  kubectl cordon ip-192-168-39-105.ec2.internal
+  448  kubectl get nodes
+  449  kubectl get po -o wide
+  450  kubectl uncordon ip-192-168-39-105.ec2.internal
+  451  kubectl get nodes
+  452  kubectl drain ip-192-168-39-105.ec2.internal
+  453  kubectl drain ip-192-168-39-105.ec2.internal
+  454  kubectl drain ip-192-168-39-105.ec2.internal --ignore-daemonsets
+  455  kubectl drain ip-192-168-39-105.ec2.internal --ignore-daemonsets --force
+  456  kubectl get nodes
+  457  kubectl get po -o wide
+  458  kubectl delete po pod1
+  459  kubectl delete po twitter-pod
+  460  kubectl api-resources
+  461  kubectl api-resources | grep replicaset
+  462  ll
+  463  kubectl apply -f 3-mc-pod.yaml
+  464  kubectl apply -f 4-rs.yaml
+  465  kubectl get all
+  466  kubectl get rs
+  467  kubectl get po
+  468  kubectl delete po instagram-rs-qjbw9
+  469  kubectl get po
+  470  kubectl get rs
+  471  kubectl describe rs instagram-rs
+  472  kubectl get po -o wide
+  473  kubectl apply -f 4-rs.yaml
+  474  kubectl get all
+  475  kubectl scale rs instagram-rs --replicas 5
+  476  kubectl get all
+  477  kubectl describe po /instagram-rs-zghgm
+  478  kubectl describe po instagram-rs-zghgm
+  479  kubectl scale rs instagram-rs --replicas 2
+  480  kubectl get all
+  481  kubectl edit rs instagram-rs
+  482  kubectl get all
+  483  kubectl edit rs instagram-rs
+  484  kubectl get all
+  485  kubectl delete rs instagram-rs
+  486  kubectl get all
+  487  ll
+  488  kubectl apply -f 5-pod.yaml
+  489  kubectl get po
+  490  kubectl apply -f 4-rs.yaml
+  491  kubectl get po
+  492  kubectl get po --show-labels
+  493  kubectl delete po instgram-pod
+  494  kubectl get po --show-labels
+  495  git status
+  496  git add . && git commit -m "1 june 26"
+  497  git push
+  498  eksctl get cluster
+  499  eksctl delete cluster b17dcluster
+
+-
+====================================================
+
+
 
 
 
